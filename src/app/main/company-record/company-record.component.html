@@ -1,0 +1,228 @@
+<div>
+  <section class="d-flex px-5 py-4 bg-white justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <div class="">
+        <img class="w-16-r" src="https://www.glasslewis.com/wp-content/uploads/2016/11/GL_Logo_338px.png" alt="logo" />
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center color-dblue fw-500">
+      <img class="" src="assets/avatar.png" alt="user" />
+      <button (click)="logOut()" class="ml-3 font-16 fw-500 log-btn color-primary">LogOut<Span>
+        </Span></button>
+    </div>
+  </section>
+
+  <section class="p-5 section-cont bg-img">
+    <div class="d-flex mb-5 justify-content-between align-items-center">
+      <div class="font-24 fw-700 color-primary">Company Records</div>
+    </div>
+
+
+    <div class="d-flex mb-5 justify-content-between align-items-center">
+
+
+      <div class=''>
+        <div class=" d-flex justify-content-between align-items-center w-270">
+          <input [(ngModel)]="searchID" class="search fw-400 font-14 color-text w-100" placeholder="Search by ID " />
+          <button (click)="getCompanyById()" type="button" class="border-0 no-outline bg-orange color-white pointer font-12 search-btn fw-600">
+            <img src="assets/search.png" alt="search" /> </button>
+        </div>
+      </div>
+
+      <div class=''>
+        <div class=" d-flex justify-content-between align-items-center w-270">
+          <input [(ngModel)]="searchISIN" class="search fw-400 font-14 color-text w-100" placeholder="Search by ISSIN" />
+          <button (click)="getCompanyByIsin()"  type="button" class="border-0 no-outline bg-orange color-white pointer font-12 search-btn fw-600">
+            <img src="assets/search.png" alt="search" /> </button>
+        </div>
+      </div>
+
+
+      <div class="d-flex align-items-center">
+        <div class="ml-3">
+          <button class="btn-outline color-white bg-orange fw-400" data-toggle="modal"
+            data-target="#exampleModalCreate">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-5 table-frame">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              <div class="fw-600 font-14 text-center color-text">#</div>
+            </th>
+            <th>
+              <div class="fw-600 font-14 text-center color-text">NAME</div>
+            </th>
+            <th>
+              <div class="fw-600 font-14 text-center color-text">TICKER</div>
+            </th>
+            <th scope="col">
+              <div class="fw-600 text-center font-14 color-text">EXCHANGE</div>
+            </th>
+            <th scope="col">
+              <div class="fw-600 text-center font-14 color-text">ISIN</div>
+            </th>
+            <th scope="col">
+              <div class="fw-600 text-center font-14 color-text">WEBSITE</div>
+            </th>
+            <th scope="col">
+              <div class="fw-600 text-center font-14 color-text">DATE</div>
+            </th>
+            <th scope="col">
+              <div class="fw-600 text-center font-14 color-text"></div>
+            </th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (item of companies; track $index) {
+          <tr>
+            <td>
+              <div class="fw-400 text-center font-14 color-text">{{ $index + 1 }}</div>
+            </td>
+            <td>
+              <div class="fw-400 text-center font-14 color-text">{{ item?.name }}</div>
+            </td>
+            <td>
+              <div class="fw-400 text-center font-14 color-text">{{ item?.ticker }}</div>
+            </td>
+            <td>
+              <div class="fw-400 text-center font-14 color-text">{{ item?.exchange }}</div>
+            </td>
+            <td>
+              <div class="fw-400 text-center font-14 color-text">{{ item?.isin }}</div>
+            </td>
+            <td>
+              <div class="fw-400 text-center font-14 color-text">{{ item?.website }}</div>
+            </td>
+            <td>
+              <div class="fw-400 text-center font-14 color-text">{{ item?.updatedAt | date : 'medium' }}</div>
+            </td>
+            <td>
+              <div>
+                <button (click)="editUserDetails(item)" type="button" class="btn-action btn" data-toggle="modal"
+                data-target="#exampleModalEdit">
+                <img class="text-center" src="assets/action.png" alt="" />              </button>
+              </div>
+               </td>
+          </tr>
+
+          }
+
+          <!-- <td> <a type="button" [routerLink]="['/main/profile/',patient?.id]" class="btn btn-sm view-btn">
+                <img src="../../../../assets/images/eye 1.svg" alt="" class="mr-2">View
+              </a>
+            </td> -->
+          <!-- <td *ngIf="patient?.patient_status === 'New Patient'">
+              <a type="button" class="btn btn-sm conversation-btn" (click)="initiateVisit(patient?.id)">
+                <img src="../../../../assets/images/timer.svg" alt="" class="mr-2">Initiate Visit
+              </a>
+            </td> -->
+        </tbody>
+
+
+      </table>
+
+    </div>
+  </section>
+</div>
+
+
+
+<!-- Modal to create Record-->
+<div class="modal fade" id="exampleModalCreate" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create Record ?</h5>
+        <button type="button" #closebuttonForCreate class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form (ngSubmit)="createCompany()" #createForm="ngForm">
+      <div class="modal-body">
+        <div class="mb-4">
+          <input type="name" [(ngModel)]="company.name" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="name" placeholder="name" #name="ngModel">
+        </div>
+        <div class="mb-4">
+          <input type="ticker" [(ngModel)]="company.ticker" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="ticker"
+            placeholder="ticker" #ticker="ngModel">
+        </div>
+
+        <div class="mb-4">
+          <input type="exchange" [(ngModel)]="company.exchange" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="exchange"
+            placeholder="exchange" #exchange="ngModel">
+        </div>
+
+        <div class="mb-4">
+          <input type="isin" [(ngModel)]="company.isin" [pattern]="isinPattern" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="isin"
+            placeholder="US1100000000" #isin="ngModel">
+        </div>
+
+        <div class="mb-4">
+          <input type="website" [(ngModel)]="company.website" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="website"
+            placeholder="http://www.example.com" #website="ngModel">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" [disabled]="createForm.invalid"
+          class="border-0 w-100 ft-avNext pointer font-14 bg-orange fw-600 mt-4 rounded-8 color-white p-3">CREATE</button>
+    </div>
+  </form>
+  </div>
+</div>
+</div>
+
+<!-- Modal to Edit Record-->
+<div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Record</h5>
+        <button type="button" #closebuttonForEdit class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form (ngSubmit)="updateCompany()" #editForm="ngForm">
+      <div class="modal-body">
+        <div class="mb-4">
+          <input type="name" [(ngModel)]="company.name" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="name" placeholder="name" #name="ngModel">
+        </div>
+        <div class="mb-4">
+          <input type="ticker" [(ngModel)]="company.ticker" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="ticker"
+            placeholder="ticker" #ticker="ngModel">
+        </div>
+
+        <div class="mb-4">
+          <input type="exchange" [(ngModel)]="company.exchange" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="exchange"
+            placeholder="exchange" #exchange="ngModel">
+        </div>
+
+        <div class="mb-4">
+          <input type="isin" [(ngModel)]="company.isin" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="isin"
+            placeholder="US1100000000" #isin="ngModel">
+        </div>
+
+        <div class="mb-4">
+          <input type="website" [(ngModel)]="company.website" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="website"
+            placeholder="http://www.example.com" #website="ngModel">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" [disabled]="editForm.invalid"
+          class="border-0 w-100 ft-avNext pointer font-14 bg-orange fw-600 mt-4 rounded-8 color-white p-3">EDIT</button>
+    </div>
+  </form>
+  </div>
+</div>
+</div>

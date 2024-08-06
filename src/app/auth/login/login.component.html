@@ -1,0 +1,67 @@
+<!-- <form (ngSubmit)="onLogin()" #signupForm="ngForm">
+
+    <div>
+      <div for="email">Email</div>
+      <input class="custom-input" type="email" id="email" required email [(ngModel)]="user.email" name="email"
+        #email="ngModel">
+      <div *ngIf="email.invalid && email.touched">
+        <small *ngIf="email.errors?.required">Email is required.</small>
+        <small *ngIf="email.errors?.email">Invalid email address.</small>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div for="password">Password</div>
+      <input class="custom-input" type="password" id="password" required minlength="6" [(ngModel)]="user.password"
+        name="password" #password="ngModel">
+      <div *ngIf="password.invalid && password.touched">
+        <small *ngIf="password.errors?.required">Password is required.</small>
+        <small *ngIf="password.errors?.minlength">Password must be at least 6 characters long.</small>
+      </div>
+    </div>
+
+    <div class="">
+      <div routerLink="/signup" class="fw-500 font-1 pointer color-danger text-right">SIGNED UP ?</div>
+    </div>
+
+    <button class="mt-4 border-0 w-100 p-1 bg-dblue boder-radius-5 color-white" type="submit"
+      [disabled]="signupForm.invalid">Login</button>
+  </form> -->
+
+<section class="overflow-hidden-x">
+  <div class="row">
+    <div class="col-md-6 left-row">
+      <div class="mb-4">
+        <img class="" src="https://www.glasslewis.com/wp-content/uploads/2016/11/GL_Logo_338px.png" alt="logo" />
+      </div>
+      <img class="w-80" src="assets/loginbg.png" alt="login" />
+    </div>
+
+    <div class="col-md-6 col-sm-12 right-row">
+      <div class='mb-5'>
+        <div class="font-40 fw-700 color-primary mb-1">Welcome!</div>
+        <div class='font-20 color-text fw-400 ft-avNext'>Enter details to login.</div>
+      </div>
+      <form (submit)="onLogin()">
+      <div class="mb-4">
+        <input type="email" [(ngModel)]="user.username" name="username" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="emailAddress"
+          placeholder="Email">
+      </div>
+      <div class="mb-4">
+        <input type="password" [(ngModel)]="user.password" name="password" class="lnq-input fw-400 font-14 color-text w-100 ft-avNext" name="password" placeholder="Password" />
+      </div>
+
+      <div class="">
+        <div class="fw-600 font-12 pointer color-secondary ft-avNext pointer">FORGOT PASSWORD ?</div>
+      </div>
+      <div>
+        <button type="submit"
+          class="border-0 w-100 ft-avNext pointer font-14 bg-orange fw-600 mt-4 rounded-8 color-white p-3">LOG
+          IN</button>
+      </div>
+      </form>
+
+
+    </div>
+  </div>
+</section>
